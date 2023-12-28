@@ -1,5 +1,3 @@
-// package Testing;
-
 import java.util.*;
 import javax.swing.*;
 import java.awt.*;
@@ -238,7 +236,7 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 	public void keyTyped(KeyEvent evt) {
 		char c = evt.getKeyChar();
 		if (!tf.isEnabled()) {
-			return;
+
 		} else if (c == 'a' || c == 'A' || c == '\n') {
 			try {
 				String data = tf.getText();
@@ -529,13 +527,5 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 	public static void main(String arg[]) {
 		BSTVisualization bst = new BSTVisualization();
 
-		bst.add(500);
-		bst.add(250);
-		bst.add(350);
-		bst.add(200);
-		bst.add(750);
-		bst.add(1000);
-		bst.add(700);
-		bst.add(740);
 	}
 }
