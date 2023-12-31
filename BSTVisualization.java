@@ -20,61 +20,7 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 	private FontMetrics fontMatrix;
 
 	//Node Structure
-	private static class Node {
-		static int TEXT_WIDTH = 40;
-		static int TEXT_HEIGHT = 40;
 
-		JLabel data;
-		Node left;
-		Node right;
-		Points p;
-
-		Node(int info) {
-			data = new JLabel(info + "", SwingConstants.CENTER);
-			data.setFont(new Font("Arial", Font.BOLD, 20));
-			data.setBorder(BorderFactory.createLineBorder(Color.black));
-			data.setOpaque(true);
-			data.setBackground(Color.green);
-			p = null;
-		}
-	}
-
-	//Points structure
-	private static class Points {
-		int x1 = 0, x2 = 0, y2 = 0, y1 = 0;
-
-		Points(int x1, int y1, int x2, int y2) {
-			this.x1 = x1;
-			this.x2 = x2;
-			this.y2 = y2;
-			this.y1 = y1;
-		}
-
-		public String toString() {
-			return "x1 = " + x1 + ", y1 = " + y1 + ", x2 = " + x2 + ", y2 = " + y2;
-		}
-	}
-
-	// For storing the Height of the root,left and right child height.
-	private static class Height {
-		int root, left, right;
-
-		Height() {
-			this.root = 0;
-			this.left = 0;
-			this.right = 0;
-		}
-
-		Height(int left, int right) {
-			this.left = left;
-			this.right = right;
-		}
-
-		@Override
-		public String toString() {
-			return Integer.toString(this.root);
-		}
-	}
 
 	public void paint(Graphics g) {
 		super.paintComponents(g);
@@ -251,7 +197,7 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 				JOptionPane.showMessageDialog(null, "Please Enter Integer.");
 			}
 			tf.setText("");
-		} else if (c == 'd' || c == 'D') {
+		} else if (c == 'd' || c == 'D' || c=='\u0020') {
 			try {
 				String data = tf.getText();
 				evt.consume(); // Not type 'd' or 'D' character in textfield
