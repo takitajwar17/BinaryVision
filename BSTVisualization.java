@@ -7,23 +7,19 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 	// Tree Root Node.
 	private Node root;
 
-	// private Color color;
-	private JPanel topPanel, treePanel, infoPanel;
-	private JPanel topLeftPanel, topRightPanel;
-	private JButton btnAdd, btnDelete;
-	private JTextField tf;
-	private int X = 300, Y = 75;
-	private Graphics2D g2;
-	private Rectangle size;
-	private JLabel labelInorder, labelPreorder, labelPostorder, labelHeight;
-	private JLabel ansInorder, ansPreorder, ansPostorder, ansHeight;
-	private FontMetrics fontMatrix;
+	private JPanel topPanel;
+    private JPanel treePanel;
+    private JButton btnAdd;
+    private JTextField tf;
+	private int X = 300;
+    private final int Y = 75;
+    private JLabel ansInorder, ansPreorder, ansPostorder, ansHeight;
 
 
-	public void paint(Graphics g) {
+    public void paint(Graphics g) {
 		super.paintComponents(g);
 
-		g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(3.0f));
 
 		Stack<Node> s = new Stack<>();
@@ -37,7 +33,8 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 			}
 			if (!s.isEmpty())
 				curr = s.pop();
-			pts = curr.p;
+            assert curr != null;
+            pts = curr.p;
 			g2.drawLine(pts.x1 + 7, pts.y1 + 30 + offset, pts.x2 + 3, pts.y2 + 10 + offset);
 			curr = curr.right;
 		}
@@ -56,27 +53,26 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 		// setLayout(null); //layout
 		setSize(1200, 700); //frame size
 
-		size = getBounds();
+        Rectangle size = getBounds();
 		X = size.width / 2;
 
 		topPanel = new JPanel(new BorderLayout());
-		Rectangle top = topPanel.getBounds();
 
-		topLeftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        JPanel topLeftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
 		topPanel.add(topLeftPanel, BorderLayout.WEST);
 
-		topRightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel topRightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		topPanel.add(topRightPanel, BorderLayout.EAST);
 
 		treePanel = new JPanel(null);
 		treePanel.setPreferredSize(new Dimension(size.width, size.height - 300));
 
-		infoPanel = new JPanel();
+        JPanel infoPanel = new JPanel();
 		infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 		infoPanel.setPreferredSize(new Dimension(size.width, 200));
 
 		// Height of BST label
-		labelHeight = new JLabel("BST Height : ");
+        JLabel labelHeight = new JLabel("BST Height : ");
 		labelHeight.setFont(new Font("Calibri", Font.BOLD, 20));
 		topLeftPanel.add(labelHeight);
 
@@ -86,7 +82,7 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 		ansHeight.setPreferredSize(new Dimension(50, 30));
 		topLeftPanel.add(ansHeight);
 
-		//For geting data.
+		//For getting data.
 		tf = new JTextField("");
 		tf.setFont(new Font("Arial", Font.BOLD, 20));
 		tf.setPreferredSize(new Dimension(150, 30));
@@ -101,14 +97,14 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 		topRightPanel.add(btnAdd);
 
 		//Delete Button
-		btnDelete = new JButton("Delete");
+        JButton btnDelete = new JButton("Delete");
 		btnDelete.setFont(new Font("Arial", Font.BOLD, 20));
 		// btnDelete.setBounds(size.width - 130, 60, 100, 30);
 		btnDelete.addActionListener(this);
 		topRightPanel.add(btnDelete);
 
 		// Inorder label
-		labelInorder = new JLabel("Inorder :");
+        JLabel labelInorder = new JLabel("Inorder :");
 		labelInorder.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		infoPanel.add(labelInorder);
 
@@ -122,7 +118,7 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 		infoPanel.add(Box.createRigidArea(new Dimension(7, 15)));
 
 		// Preorder label
-		labelPreorder = new JLabel("Preorder :");
+        JLabel labelPreorder = new JLabel("Preorder :");
 		labelPreorder.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		infoPanel.add(labelPreorder);
 
@@ -136,7 +132,7 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 		infoPanel.add(Box.createRigidArea(new Dimension(7, 15)));
 
 		// Postorder label
-		labelPostorder = new JLabel("Postorder :");
+        JLabel labelPostorder = new JLabel("Postorder :");
 		labelPostorder.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		infoPanel.add(labelPostorder);
 
@@ -179,12 +175,10 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 	@Override
 	public void keyTyped(KeyEvent evt) {
 		char c = evt.getKeyChar();
-		if (!tf.isEnabled()) {
-
-		} else if (c == 'a' || c == 'A' || c == '\n') {
+		if (c == 'a' || c == 'A' || c == '\n') {
 			try {
 				String data = tf.getText();
-				evt.consume(); // Not type 'a' or 'A' character in textfield
+				evt.consume(); // Not type 'a' or 'A' character in text-field
 				if (!data.isEmpty()) {
 					add(Integer.parseInt(data));
 				} else {
@@ -195,10 +189,10 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 				JOptionPane.showMessageDialog(null, "Please Enter Integer.");
 			}
 			tf.setText("");
-		} else if (c == 'd' || c == 'D' || c=='\u0020') {
+		} else if (c == 'd' || c == 'D' || c==' ') {
 			try {
 				String data = tf.getText();
-				evt.consume(); // Not type 'd' or 'D' character in textfield
+				evt.consume(); // Not type 'd' or 'D' character in text-field
 				if (!data.isEmpty()) {
 					delete(Integer.parseInt(data));
 				}
@@ -300,77 +294,70 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 			if (curr == null) { // data is not find.
 				JOptionPane.showMessageDialog(null, data + " is not available.");
 				return;
-			} else if (curr.left == null || curr.right == null) { // data has 0 or 1 child
+			} else {
+                treePanel.remove(curr.data);
+                treePanel.validate();
+                treePanel.repaint();
+                validate();
+                repaint();
+                if (curr.left == null || curr.right == null) { // data has 0 or 1 child
 
-				treePanel.remove(curr.data);
-				treePanel.validate();
-				treePanel.repaint();
+                    if (curr != root) {
+                        Node address = curr.left != null ? curr.left : curr.right;
+                        // curr.data>pre.data
+                        int preData = Integer.parseInt(pre.data.getText());
+                        int currData = Integer.parseInt(curr.data.getText());
+                        if (currData > preData) {
+                            pre.right = address;
+                        } else {
+                            pre.left = address;
+                        }
+                    } else {
+                        if (curr.left != null) {
+                            root = curr.left;
+                        } else {
+                            root = curr.right;
+                        }
+                    }
 
-				validate();
-				repaint();
+                } else { // data has 2 child.
 
-				if (curr != root) {
-					Node address = curr.left != null ? curr.left : curr.right;
-					// curr.data>pre.data
-					int preData = Integer.parseInt(pre.data.getText());
-					int currData = Integer.parseInt(curr.data.getText());
-					if (currData > preData) {
-						pre.right = address;
-					} else {
-						pre.left = address;
-					}
-				} else {
-					if (curr.left != null) {
-						root = curr.left;
-					} else {
-						root = curr.right;
-					}
-				}
+                    /*
+                     It set another node depending upon the height of left and right subtree.
+                     */
+                    Node nextRoot, preRoot = curr;
+                    Height height = calculateHeight(curr);
 
-			} else { // data has 2 child.
+                    /* For taking maximum element from the left Side. */
+                    if (height.left > height.right) {
+                        nextRoot = curr.left;
+                        while (nextRoot.right != null) {
+                            preRoot = nextRoot;
+                            nextRoot = nextRoot.right;
+                        }
 
-				treePanel.remove(curr.data);
-				treePanel.validate();
-				treePanel.repaint();
+                        if (preRoot != curr) {
+                            preRoot.right = nextRoot.left;
+                        } else {
+                            preRoot.left = nextRoot.left;
+                        }
+                    } else { /* For taking minimum element from the right Side.*/
+                        nextRoot = curr.right;
+                        while (nextRoot.left != null) {
+                            preRoot = nextRoot;
+                            nextRoot = nextRoot.left;
+                        }
 
-				validate();
-				repaint();
+                        if (preRoot != curr) {
+                            preRoot.left = nextRoot.right;
+                        } else {
+                            preRoot.right = nextRoot.right;
+                        }
+                    }
 
-				/*
-				 It set another node depending upon the height of left and right sub tree.
-				 */
-				Node nextRoot = null, preRoot = curr;
-				Height height = calculateHeight(curr);
-
-				/* For taking maximum element from the left Side. */
-				if (height.left > height.right) {
-					nextRoot = curr.left;
-					while (nextRoot.right != null) {
-						preRoot = nextRoot;
-						nextRoot = nextRoot.right;
-					}
-
-					if (preRoot != curr) {
-						preRoot.right = nextRoot.left;
-					} else {
-						preRoot.left = nextRoot.left;
-					}
-				} else { /* For taking minimum element from the right Side.*/
-					nextRoot = curr.right;
-					while (nextRoot.left != null) {
-						preRoot = nextRoot;
-						nextRoot = nextRoot.left;
-					}
-
-					if (preRoot != curr) {
-						preRoot.left = nextRoot.right;
-					} else {
-						preRoot.right = nextRoot.right;
-					}
-				}
-
-				curr.data = nextRoot.data;
-			}
+                    curr.data = nextRoot.data;
+                }
+            }
 			reArrangeNode(root, root, treePanel.getBounds().width / 2);
 		}
 
@@ -396,7 +383,7 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 	}
 
 	private int getWidth(Node node) {
-		fontMatrix = getFontMetrics(node.data.getFont());
+        FontMetrics fontMatrix = getFontMetrics(node.data.getFont());
 		int width = fontMatrix.stringWidth(node.data.getText());
 		return width < Node.TEXT_WIDTH ? Node.TEXT_WIDTH : (width + 5);
 	}
@@ -411,7 +398,7 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 
 	//Preorder logic
 	public String preorder(Node root) {
-		if (root == null)
+        if (root == null)
 			return "";
 
 		return root.data.getText() + " " + preorder(root.left) + preorder(root.right);
@@ -468,7 +455,7 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 		reArrangeNode(node.right, node, X / 2);
 	}
 
-	public static void main(String arg[]) {
+	public static void main(String[] arg) {
 		BSTVisualization bst = new BSTVisualization();
 
 	}
