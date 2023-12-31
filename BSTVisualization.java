@@ -19,8 +19,6 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 	private JLabel ansInorder, ansPreorder, ansPostorder, ansHeight;
 	private FontMetrics fontMatrix;
 
-	//Node Structure
-
 
 	public void paint(Graphics g) {
 		super.paintComponents(g);
