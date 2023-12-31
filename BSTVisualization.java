@@ -55,7 +55,7 @@ public class BSTVisualization extends JFrame implements ActionListener, KeyListe
 
 	private void initialize() {
 
-		// setLayout(null); // layout
+		// setLayout(null); //layout
 		setSize(1200, 700); //frame size
 
 		size = getBounds();
